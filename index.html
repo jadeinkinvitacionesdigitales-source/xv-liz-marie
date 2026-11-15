@@ -275,6 +275,13 @@ footer small{display:block;font-family:var(--caps);letter-spacing:.3em;font-size
 .palette-lbl{font-family:var(--caps);font-size:12px;letter-spacing:.24em;color:var(--gold-2);margin-top:30px}
 .sug{font-style:italic;font-size:19px;color:var(--cream);margin-top:14px;font-weight:600}
 .event .home{font-style:italic;font-size:19px;color:var(--cream-2);margin-top:2px}
+/* ---------- galería ---------- */
+.gal .cam{width:64px;height:64px;margin:22px auto 0;display:block;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6))}
+.gal .eyes{font-family:var(--script);font-size:44px;line-height:1.15;margin:6px auto 14px;display:table;padding:.06em .3em .12em}
+.qr-card{width:220px;margin:26px auto 0;padding:14px 14px 12px}
+.qr{background:var(--cream);border-radius:12px;padding:10px;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.qr svg{width:100%;height:100%;display:block}
+.qr-cap{font-family:var(--caps);font-size:11px;letter-spacing:.2em;color:var(--gold-2);margin-top:10px;text-shadow:none}
 </style>
 </head>
 <body class="locked">
@@ -404,6 +411,22 @@ footer small{display:block;font-family:var(--caps);letter-spacing:.3em;font-size
     <p class="no-note reveal">Reservados para la quinceañera</p>
   </section>
 
+  <!-- ================= GALERÍA DE FOTOS ================= -->
+  <section class="gal">
+    <img class="deco bfly" src="elementos/mariposa.webp" alt="" style="width:58px;left:16px;top:34px">
+    <img class="deco bob" src="elementos/hoja-11.webp" alt="" style="width:96px;right:-30px;bottom:40px">
+    <div class="divider reveal"><svg viewBox="0 0 24 24"><use href="#sparkle"/></svg></div>
+    <svg class="cam reveal" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="url(#gGold)" stroke="#7d5d25" stroke-width=".8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.6" fill="#0b2a24" stroke="#f1dc9c" stroke-width="1"/><circle cx="12" cy="13" r="1.4" fill="#a9d6e5"/></svg>
+    <h2 class="reveal">GALERÍA DE FOTOS</h2>
+    <div class="eyes gold-text reveal">Quiero ver mis XV a través de tus ojos</div>
+    <p class="body reveal">Comparte tus fotos a través de este enlace</p>
+    <a class="btn reveal" id="galBtn" href="https://drive.google.com/drive/folders/12MEpuUkybPaPgZU_dnghx8LgeO85yEKk?usp=sharing" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.2" fill="#f1dc9c"/></svg>COMPARTIR MIS FOTOS</a>
+    <div class="qr-card glass reveal">
+      <div class="qr" id="qr" role="img" aria-label="Código QR de la galería de fotos"></div>
+      <div class="qr-cap">ESCANEA EL CÓDIGO</div>
+    </div>
+  </section>
+
   <footer>
     <svg viewBox="0 0 120 70" style="width:70px" aria-hidden="true"><use href="#crown"/></svg>
     <div class="script gold-text">¡Te espero!</div>
@@ -453,6 +476,7 @@ footer small{display:block;font-family:var(--caps);letter-spacing:.3em;font-size
   </symbol>
 </svg>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 /* ======================= CONFIG ======================= */
 const CONFIG = {
@@ -531,6 +555,15 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
       ['x1','y1','x2','y2','x3','y3'].map(k => `--${k}:${r(-40,40)}px`).join(';');
     box.appendChild(f);
   }
+})();
+
+/* ---------- QR de la galería (mismo enlace del botón) ---------- */
+(function(){
+  if (typeof qrcode !== 'function') return;
+  const q = qrcode(0, 'M');
+  q.addData($('#galBtn').href); q.make();
+  $('#qr').innerHTML = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true })
+    .replace(/fill="white"/g, 'fill="#f6efdc"').replace(/fill="black"/g, 'fill="#0b2a24"');
 })();
 </script>
 </body>
